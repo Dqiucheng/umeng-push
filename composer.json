@@ -1,0 +1,20 @@
+{
+    "name": "qiucheng/dumeng",
+    "description": "umeng API PHP Client",
+    "license": "mit",
+    "authors": [
+        {
+            "name": "duanhaoyang",
+            "email": "799306098@qq.com"
+        }
+    ],
+    "prefer-stable": "true",
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DUmeng\\": "src/DUmeng"
+        }
+    }
+}
