@@ -13,6 +13,10 @@ $ composer require qiucheng/umeng
 
 ### 初始化客户端
 ```php
+require __DIR__ .'./vendor/autoload.php';
+
+use DUmeng\Client;
+
 $config = [
     'android' => [
         'appkey' => 'xxxxxxx',
