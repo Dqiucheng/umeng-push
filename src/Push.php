@@ -242,17 +242,19 @@ class Push
      * @return array
      * @throws \Exception
      */
-    public function build()
+    public function build(array $data = [])
     {
-        if (empty($this->platform)) {
-            throw new \Exception('platform must be set');
+        if (!empty($data)) {
+            $this->data = $data;
+            return $data;
         }
+
         foreach ($this->data as $plt => $pltNotificationArr) {
             if (empty($pltNotificationArr)) {
                 unset($this->data[$plt]);
                 continue;
             }
-            foreach ($pltNotificationArr as $key => $val) {
+            foreach ($pltNotificationArr as $val) {
                 $this->data[$plt]['appkey'] = $this->client->getConfig($plt)['appkey'];
                 $this->data[$plt]['timestamp'] = time();
             }
