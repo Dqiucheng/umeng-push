@@ -14,6 +14,8 @@ use DUmeng\ios\Ios;
 
 class Push
 {
+    const PTF = ['ios', 'android'];
+
     private $client;
     private $platform = [];
 
@@ -36,7 +38,7 @@ class Push
     {
         # $required_keys = array('android', 'ios');
         $ptf = array_map('strtolower', $platform);
-        $this->platform = array_intersect($ptf, ['ios', 'android']);
+        $this->platform = array_intersect($ptf, self::PTF);
         if (empty($this->platform)) {
             throw new \Exception('Invalid platform value');
         }
@@ -249,14 +251,14 @@ class Push
             return $data;
         }
 
-        foreach ($this->data as $plt => $pltNotificationArr) {
-            if (empty($pltNotificationArr)) {
-                unset($this->data[$plt]);
+        foreach ($this->data as $ptf => $ptfNotificationArr) {
+            if (empty($ptfNotificationArr) || !is_array($ptfNotificationArr) || !in_array($ptf, self::PTF)) {
+                unset($this->data[$ptf]);
                 continue;
             }
-            foreach ($pltNotificationArr as $val) {
-                $this->data[$plt]['appkey'] = $this->client->getConfig($plt)['appkey'];
-                $this->data[$plt]['timestamp'] = time();
+            foreach ($ptfNotificationArr as $key => $val) {
+                $this->data[$ptf]['appkey'] = $this->client->getConfig($ptf)['appkey'];
+                $this->data[$ptf]['timestamp'] = time();
             }
         }
 
@@ -283,12 +285,12 @@ class Push
     public function send()
     {
         $res = [];
-        foreach ($this->build() as $plt => $val) {
-            $res[$plt] = $this->client->http_post(
+        foreach ($this->build() as $ptf => $val) {
+            $res[$ptf] = $this->client->http_post(
                 $this->client,
                 $this->client::SEND_URL,
                 $val,
-                $this->client->getConfig($plt)['appMasterSecret']
+                $this->client->getConfig($ptf)['appMasterSecret']
             );
         }
         return $res;
@@ -309,15 +311,15 @@ class Push
             throw new \Exception('platform is not set');
         }
         $res = [];
-        foreach ($this->platform as $key => $plt) {
-            $data['appkey'] = $this->client->getConfig($plt)['appkey'];
+        foreach ($this->platform as $key => $ptf) {
+            $data['appkey'] = $this->client->getConfig($ptf)['appkey'];
             $data['timestamp'] = time();
             $data['task_id'] = $task_id;
-            $res[$plt] = $this->client->http_post(
+            $res[$ptf] = $this->client->http_post(
                 $this->client,
                 $this->client::STATUS_URL,
                 $data,
-                $this->client->getConfig($plt)['appMasterSecret']
+                $this->client->getConfig($ptf)['appMasterSecret']
             );
         }
         return $res;
@@ -338,15 +340,15 @@ class Push
             throw new \Exception('platform is not set');
         }
         $res = [];
-        foreach ($this->platform as $key => $plt) {
-            $data['appkey'] = $this->client->getConfig($plt)['appkey'];
+        foreach ($this->platform as $key => $ptf) {
+            $data['appkey'] = $this->client->getConfig($ptf)['appkey'];
             $data['timestamp'] = time();
             $data['task_id'] = $task_id;
-            $res[$plt] = $this->client->http_post(
+            $res[$ptf] = $this->client->http_post(
                 $this->client,
                 $this->client::CANCEL_URL,
                 $data,
-                $this->client->getConfig($plt)['appMasterSecret']
+                $this->client->getConfig($ptf)['appMasterSecret']
             );
         }
         return $res;
@@ -371,15 +373,15 @@ class Push
             throw new \Exception('platform is not set');
         }
         $res = [];
-        foreach ($this->platform as $key => $plt) {
-            $data['appkey'] = $this->client->getConfig($plt)['appkey'];
+        foreach ($this->platform as $key => $ptf) {
+            $data['appkey'] = $this->client->getConfig($ptf)['appkey'];
             $data['timestamp'] = time();
             $data['content'] = $content;
-            $res[$plt] = $this->client->http_post(
+            $res[$ptf] = $this->client->http_post(
                 $this->client,
                 $this->client::UPLOAD_URL,
                 $data,
-                $this->client->getConfig($plt)['appMasterSecret']
+                $this->client->getConfig($ptf)['appMasterSecret']
             );
         }
         return $res;
