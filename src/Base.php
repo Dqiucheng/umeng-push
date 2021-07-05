@@ -6,7 +6,7 @@
  * Time: 15:29
  */
 
-namespace DUmeng;
+namespace Dumeng;
 
 class Base
 {

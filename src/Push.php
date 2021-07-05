@@ -7,10 +7,10 @@
  * Time: 17:39
  */
 
-namespace DUmeng;
+namespace Dumeng;
 
-use DUmeng\android\Android;
-use DUmeng\ios\Ios;
+use Dumeng\android\Android;
+use Dumeng\ios\Ios;
 
 class Push
 {

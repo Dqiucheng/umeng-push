@@ -6,7 +6,7 @@
  * Time: 15:51
  */
 
-namespace DUmeng\Android;
+namespace Dumeng\Android;
 
 class Android
 {

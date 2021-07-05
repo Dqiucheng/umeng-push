@@ -5,7 +5,7 @@
  * Date: 2021/7/1
  * Time: 15:51
  */
-namespace DUmeng\Ios;
+namespace Dumeng\Ios;
 class Ios
 {
     public function set_payload(array $payload)

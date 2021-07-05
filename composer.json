@@ -1,5 +1,5 @@
 {
-    "name": "qiucheng/DUmeng",
+    "name": "qiucheng/dumeng",
     "description": "umeng API PHP Client",
     "license": "MIT",
     "authors": [
@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "DUmeng\\": "src/"
+            "Dumeng\\": "src/"
         }
     }
 }
