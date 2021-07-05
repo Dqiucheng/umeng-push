@@ -241,6 +241,7 @@ class Push
      * 生成请求体
      * @link https://developer.umeng.com/docs/67966/detail/68343
      *
+     * @param array $data   设置指定请求体，设置后将直接绕过set_XXX系列函数操作
      * @return array
      * @throws \Exception
      */
