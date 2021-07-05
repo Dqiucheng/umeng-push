@@ -15,7 +15,7 @@ $ composer require qiucheng/dumeng
 ```php
 require __DIR__ .'./vendor/autoload.php';
 
-use DUmeng\Client;
+use Dumeng\Client;
 
 $config = [
     'android' => [
