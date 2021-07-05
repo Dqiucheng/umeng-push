@@ -1,7 +1,7 @@
 {
-    "name": "qiucheng/umeng",
+    "name": "qiucheng/DUmeng",
     "description": "umeng API PHP Client",
-    "license": "mit",
+    "license": "MIT",
     "authors": [
         {
             "name": "duanhaoyang",
