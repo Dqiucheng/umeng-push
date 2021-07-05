@@ -5,7 +5,7 @@
 
 #### 使用 Composer 安装
 ```shell
-$ composer require qiucheng/DUmeng
+$ composer require qiucheng/dumeng
 ```
 
 ## 使用示例
