@@ -241,7 +241,7 @@ class Push
      * 生成请求体
      * @link https://developer.umeng.com/docs/67966/detail/68343
      *
-     * @param array $data   设置指定请求体，设置后将直接绕过set_XXX系列函数操作
+     * @param array $data 设置指定请求体，设置后将直接绕过set_XXX系列函数操作
      * @return array
      * @throws \Exception
      */
@@ -303,16 +303,18 @@ class Push
      * 任务类消息(type为broadcast、groupcast、filecast、customizedcast且file_id不为空)，可以通过task_id来查询当前的消息状态
      * todo 注意：非任务类消息，该接口会不生效。
      *
-     * @param string $task_id 消息发送时, 从返回消息中获取的task_id
+     * @param array $task_id_arr 消息发送时, 从返回消息中获取的task_id
+     *      ios:task_id
+     *      android:task_id
      * @return mixed
      */
-    public function status(string $task_id)
+    public function status(array $task_id_arr)
     {
-        if (empty($this->platform)) {
-            throw new \Exception('platform is not set');
+        if (empty(array_intersect(array_keys($task_id_arr), self::PTF))) {
+            throw new \Exception('Invalid task_id_arr key value');
         }
         $res = [];
-        foreach ($this->platform as $key => $ptf) {
+        foreach ($task_id_arr as $ptf => $task_id) {
             $data['appkey'] = $this->client->getConfig($ptf)['appkey'];
             $data['timestamp'] = time();
             $data['task_id'] = $task_id;
@@ -332,16 +334,18 @@ class Push
      * 任务类消息(type为broadcast、groupcast、filecast、customizedcast且file_id不为空)，可以进行撤销操作。
      * todo 注意：撤销操作首先会从服务端尝试撤销（Android消息，排队中/发送中状态可以服务端撤销；iOS消息，排队中状态可以服务端撤销）；其次，针对组件版SDK（Android SDK 4.0及以上和iOS sdk 3.0及以上），会尝试从设备端撤销已展示但未被点击的消息。
      *
-     * @param string $task_id 消息发送时, 从返回消息中获取的task_id
+     * @param array $task_id_arr 消息发送时, 从返回消息中获取的task_id
+     *      ios:task_id
+     *      android:task_id
      * @return mixed
      */
-    public function cancel(string $task_id)
+    public function cancel(array $task_id_arr)
     {
-        if (empty($this->platform)) {
-            throw new \Exception('platform is not set');
+        if (empty(array_intersect(array_keys($task_id_arr), self::PTF))) {
+            throw new \Exception('Invalid task_id_arr key value');
         }
         $res = [];
-        foreach ($this->platform as $key => $ptf) {
+        foreach ($task_id_arr as $ptf => $task_id) {
             $data['appkey'] = $this->client->getConfig($ptf)['appkey'];
             $data['timestamp'] = time();
             $data['task_id'] = $task_id;
@@ -365,16 +369,18 @@ class Push
      * 文件自创建起，服务器会保存两个月。开发者可以在有效期内重复使用该file-id进行消息发送。
      * todo 注意：上传的文件不超过10M。
      *
-     * @param string $content 文件内容, 多个device_token/alias请用回车符"\n"分隔
+     * @param array $content 文件内容, 多个device_token/alias请用回车符"\n"分隔
+     *      ios:content
+     *      android:content
      * @return mixed
      */
-    public function upload(string $content)
+    public function upload(array $content_arr)
     {
-        if (empty($this->platform)) {
-            throw new \Exception('platform is not set');
+        if (empty(array_intersect(array_keys($content_arr), self::PTF))) {
+            throw new \Exception('Invalid content_arr key value');
         }
         $res = [];
-        foreach ($this->platform as $key => $ptf) {
+        foreach ($content_arr as $ptf => $content) {
             $data['appkey'] = $this->client->getConfig($ptf)['appkey'];
             $data['timestamp'] = time();
             $data['content'] = $content;

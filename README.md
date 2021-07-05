@@ -44,22 +44,19 @@ set_xxx函数参数对应友盟官方u-push 文档: https://developer.umeng.com/
 ### 消息状态查询
 ```php
 $push = $Client->push();
-$push->set_platform(['ios','android']);
-$push->status('XXXXX');
+$push->status(['ios'=>'XXXX','android'=>'XXXX']);
 ```
 
 ### 消息撤销
 ```php
 $push = $Client->push();
-$push->set_platform(['ios','android']);
-$push->cancel('XXXXX');
+$push->cancel(['ios'=>'XXXX','android'=>'XXXX']);
 ```
 
 ### 文件上传
 ```php
 $push = $Client->push();
-$push->set_platform(['ios','android']);
-$push->upload('XXXXX');
+$push->upload(['ios'=>'XXXX','android'=>'XXXX']);
 ```
 
 
