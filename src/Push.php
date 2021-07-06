@@ -310,7 +310,7 @@ class Push
      */
     public function status(array $task_id_arr)
     {
-        if (empty(array_intersect(array_keys($task_id_arr), self::PTF))) {
+        if (empty(array_intersect_key($task_id_arr, self::PTF))) {
             throw new \Exception('Invalid task_id_arr key value');
         }
         $res = [];
@@ -341,7 +341,7 @@ class Push
      */
     public function cancel(array $task_id_arr)
     {
-        if (empty(array_intersect(array_keys($task_id_arr), self::PTF))) {
+        if (empty(array_intersect_key($task_id_arr, self::PTF))) {
             throw new \Exception('Invalid task_id_arr key value');
         }
         $res = [];
