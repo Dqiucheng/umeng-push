@@ -376,7 +376,7 @@ class Push
      */
     public function upload(array $content_arr)
     {
-        if (empty(array_intersect(array_keys($content_arr), self::PTF))) {
+        if (empty(array_intersect_key($content_arr, self::PTF))) {
             throw new \Exception('Invalid content_arr key value');
         }
         $res = [];
