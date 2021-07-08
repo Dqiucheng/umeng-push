@@ -183,7 +183,7 @@ class Push
      */
     public function set_policy(array $policy)
     {
-        $policy = array_intersect_key($policy, ['start_time', 'expire_time', 'out_biz_no', 'apns_collapse_id']);
+        $policy = array_intersect_key($policy, ['start_time' => '', 'expire_time' => '', 'out_biz_no' => '', 'apns_collapse_id' => '']);
         if (empty($policy)) {
             throw new \Exception('Invalid policy value');
         }
@@ -310,7 +310,7 @@ class Push
      */
     public function status(array $task_id_arr)
     {
-        if (empty(array_intersect_key($task_id_arr, self::PTF))) {
+        if (empty(array_intersect(array_keys($task_id_arr), self::PTF))) {
             throw new \Exception('Invalid task_id_arr key value');
         }
         $res = [];
@@ -341,7 +341,7 @@ class Push
      */
     public function cancel(array $task_id_arr)
     {
-        if (empty(array_intersect_key($task_id_arr, self::PTF))) {
+        if (empty(array_intersect(array_keys($task_id_arr), self::PTF))) {
             throw new \Exception('Invalid task_id_arr key value');
         }
         $res = [];
@@ -376,7 +376,7 @@ class Push
      */
     public function upload(array $content_arr)
     {
-        if (empty(array_intersect_key($content_arr, self::PTF))) {
+        if (empty(array_intersect(array_keys($content_arr), self::PTF))) {
             throw new \Exception('Invalid content_arr key value');
         }
         $res = [];
