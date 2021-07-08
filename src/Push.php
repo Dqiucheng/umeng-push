@@ -183,7 +183,7 @@ class Push
      */
     public function set_policy(array $policy)
     {
-        $policy = array_intersect($policy, ['start_time', 'expire_time', 'out_biz_no', 'apns_collapse_id']);
+        $policy = array_intersect_key($policy, ['start_time', 'expire_time', 'out_biz_no', 'apns_collapse_id']);
         if (empty($policy)) {
             throw new \Exception('Invalid policy value');
         }

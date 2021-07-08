@@ -34,7 +34,7 @@ $Client = new Client($config);
 ### 推送消息
 ```php
 $push = $Client->push();
-$push->set_platform(['ios','android']);
+$push->set_platform(['ios','android']); //设置推动端，必须要首先设置该参数
 $push->set_type('broadcast');
 $push->set_payload(['ios'=>['aaa'],'android'=>['bbb']]);
 $push->send();
